@@ -8,6 +8,9 @@ class PostsController extends Controller
 {
     public function show($slug)
     {
-        return view('welcome');
+        $post = \DB::table('posts')->where('slug', $slug)->first();
+        // dd($post);s
+
+        return view('post', [ 'post' => $post]);
     }
 }

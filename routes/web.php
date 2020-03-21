@@ -21,15 +21,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/test', 'PostsController@show');
 
-Route::get('posts/{post}', function ($post) {
-    $posts = [
-        'first' => 'This is the first one',
-        'second' => 'this is the second one'
-    ];
+// Route::get('posts/{post}', function ($post) {
+//     $posts = [
+//         'first' => 'This is the first one',
+//         'second' => 'this is the second one'
+//     ];
 
-    if (! array_key_exists($post, $posts)) {
-        abort(404);
-    }
+//     if (! array_key_exists($post, $posts)) {
+//         abort(404);
+//     }
 
-    return view('post', [ 'post' => $posts[$post]]);
-});
+//     return view('post', [ 'post' => $posts[$post]]);
+// });
+
+Route::get('posts/{post}', 'PostsController@show');
