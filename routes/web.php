@@ -19,6 +19,19 @@ use Illuminate\Support\Facades\Route;
 //     return view('test', ['name' => $name]);
 // });
 
+Route::get('/', function() {
+    // return view('welcome');
+    return view('newwelcome');
+});
+
+Route::get('/about', function() {
+    return view('about');
+});
+
+Route::get('/contact', function() {
+    return view('contact');
+});
+
 Route::get('/test', 'PostsController@show');
 
 // Route::get('posts/{post}', function ($post) {
