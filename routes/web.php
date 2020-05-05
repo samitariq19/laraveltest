@@ -25,7 +25,11 @@ Route::get('/', function() {
 });
 
 Route::get('/about', function() {
-    return view('about');
+    $article = App\Article::take(3)->latest()->get();
+
+    return view('about', [
+        'articles' => $article
+    ]);
 });
 
 Route::get('/contact', function() {
@@ -34,17 +38,10 @@ Route::get('/contact', function() {
 
 Route::get('/test', 'PostsController@show');
 
-// Route::get('posts/{post}', function ($post) {
-//     $posts = [
-//         'first' => 'This is the first one',
-//         'second' => 'this is the second one'
-//     ];
+Route::get('/articles', 'ArticlesController@index');
+Route::post('/articles', 'ArticlesController@store');
+Route::get('/articles/create', 'ArticlesController@create');
+Route::get('/articles/{article}', 'ArticlesController@show');
 
-//     if (! array_key_exists($post, $posts)) {
-//         abort(404);
-//     }
-
-//     return view('post', [ 'post' => $posts[$post]]);
-// });
 
 Route::get('posts/{post}', 'PostsController@show');
