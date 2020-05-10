@@ -12,33 +12,23 @@
 
 <div id="wrapper">
     <div id="page" class="container">
-        <h1>New Article</h1>
+        <h1>Update Article</h1>
 
-        <form action="/articles" method="POST">
+        <form action="/articles/{{$article->id}}" method="POST">
             @csrf
+            @method('put')
+
             <div class="form-group">
                 <label for="titleInput">Title</label>
-            <input name="title" type="text" class="form-control @error('title') is-danger @enderror" id="titleInput" value="{{ old('title') }}">
-
-                @error('title')
-                  <p>{{$errors->first('title')}}</p>
-                @enderror
+                <input name="title" type="text" class="form-control" id="titleInput" value="{{ $article->title }}">
               </div>
               <div class="form-group">
                 <label for="ecerptInput">Excerpt</label>
-                <input name="excerpt" type="text" class="form-control @error('excerpt') is-danger @enderror" id="excerptInput" value="{{ old('excerpt') }}">
-
-                @error('excerpt')
-                <p>{{$errors->first('excerpt')}}</p>
-              @enderror
+                <input name="excerpt" type="text" class="form-control" id="excerptInput" value="{{ $article->excerpt }}">
               </div>
               <div class="form-group">
                 <label for="bodyInput">Body</label>
-                <input name="body" type="text" class="form-control @error('body') is-danger @enderror" id="bodyInput" value="{{ old('body') }}">
-
-                @error('body')
-                <p>{{$errors->first('body')}}</p>
-              @enderror
+                <input name="body" type="text" class="form-control" id="bodyInput" value="{{ $article->body }}">
               </div>
               <button type="submit" class="btn btn-primary">Submit</button>
         </form>

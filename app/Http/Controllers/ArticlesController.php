@@ -7,15 +7,12 @@ use Illuminate\Http\Request;
 
 class ArticlesController extends Controller
 {
-    public function show($id) {
-        $article = Article::find($id);
-        // dd($article);
+    public function show(Article $article) {
         return view('articles.show', ['article' => $article]);
     }
 
     public function index() {
         $articles = Article::latest()->get();
-        // dd($articles);
         return view('articles.index', ['articles' => $articles]);
     }
 
@@ -24,14 +21,28 @@ class ArticlesController extends Controller
     }
 
     public function store() {
-        // dd("hello");
-        $article = new Article;
-        // dump(\request()->all());    
-        $article->title = request('title');
-        $article->excerpt = request('excerpt');
-        $article->body = request('body');
-        // dd($article);
-        $article->save();
+        $validatedAttributes = $this->validateArticle();
+        
+        Article::create($validatedAttributes);
+
         return \redirect('/articles');
+    }
+
+    public function edit(Article $article) {
+        return view('articles.edit', ['article' => $article]);
+    }
+
+    public function update(Article $article) {
+        $article->update($this->validateArticle());
+
+        return redirect($article->path());
+    }
+
+    protected function validateArticle() {
+        return \request()->validate([
+            'title' => 'required',
+            'excerpt' => 'required',
+            'body' => 'required',
+        ]);
     }
 }
